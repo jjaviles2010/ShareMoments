@@ -38,4 +38,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+    //Dependency Injection
+    implementation "org.koin:koin-android-viewmodel:$rootProject.koin_version"
+    implementation "org.koin:koin-android:$rootProject.koin_version"
 }
