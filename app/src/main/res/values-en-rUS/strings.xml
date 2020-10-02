@@ -2,4 +2,5 @@
 <resources>
     <string name="desc_camera_image">Camera image</string>
     <string name="desc_photo_in_the_list">Photo in the list</string>
+    <string name="lb_new_photo">New photo</string>
 </resources>
