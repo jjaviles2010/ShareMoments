@@ -3,4 +3,10 @@
     <string name="desc_camera_image">Camera image</string>
     <string name="desc_photo_in_the_list">Photo in the list</string>
     <string name="lb_new_photo">New photo</string>
+    <string name="desc_selected_photo">Selected photo</string>
+    <string name="lb_title">Title:</string>
+    <string name="lb_photo_date">Date:</string>
+    <string name="lb_size">Size:</string>
+    <string name="lb_dimensions">Dimensions:</string>
+    <string name="lb_format">Format:</string>
 </resources>
