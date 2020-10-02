@@ -16,5 +16,6 @@ class Photo(
     var height: Double = 0.0,
     var width: Double = 0.0,
     var photoDate: Long = 0,
+    var photoRating: Int = 0,
     var fileSize: Long = 0
 ) : Parcelable
