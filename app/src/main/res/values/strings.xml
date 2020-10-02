@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">Share Moments</string>
     <string name="desc_camera_image">Camera image</string>
+    <string name="desc_photo_in_the_list">Photo in the list</string>
 </resources>
