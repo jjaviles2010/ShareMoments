@@ -1,14 +1,17 @@
 package com.jlapps.sharemoments.view.photos
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jlapps.sharemoments.R
+import com.jlapps.sharemoments.view.photoDetails.PhotoDetailsActivity
 import kotlinx.android.synthetic.main.activity_photos_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -44,4 +47,15 @@ class PhotosListActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.ac_add_photo -> showPhotoDetailsScreen()
+        }
+        return true
+    }
+
+    private fun showPhotoDetailsScreen() {
+        val intent = Intent(this, PhotoDetailsActivity::class.java)
+        startActivity(intent)
+    }
 }

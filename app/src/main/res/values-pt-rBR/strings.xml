@@ -9,4 +9,6 @@
     <string name="lb_size">Tamanho:</string>
     <string name="lb_dimensions">Dimensões:</string>
     <string name="lb_format">Formato:</string>
+    <string name="lb_take_photo">Tirar foto</string>
+    <string name="lb_save">Salvar</string>
 </resources>
