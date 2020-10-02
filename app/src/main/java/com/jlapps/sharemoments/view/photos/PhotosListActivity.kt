@@ -1,11 +1,12 @@
-package com.jlapps.sharemoments
+package com.jlapps.sharemoments.view.photos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jlapps.sharemoments.R
 
-class MainActivity : AppCompatActivity() {
+class PhotosListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_photos_list)
     }
 }
