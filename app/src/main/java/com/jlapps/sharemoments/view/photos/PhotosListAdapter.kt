@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.photo_list_item.view.*
 
 class PhotosListAdapter(
     val photos: List<Photo>,
-    val clickListener: (Photo) -> View.OnClickListener
+    val clickListener: (Photo) -> Unit
 ): RecyclerView.Adapter<PhotosListAdapter.PhotoViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -31,10 +31,12 @@ class PhotosListAdapter(
 
     class PhotoViewHolder(val view: View): RecyclerView.ViewHolder(view) {
         fun bindView(photoInfo: Photo,
-                     clickListener: (Photo) -> View.OnClickListener) = with(itemView) {
+                     clickListener: (Photo) -> Unit) = with(itemView) {
             tvPhotoTitle.text = photoInfo.title
             rbPhotoRate.rating = photoInfo.photoRating.toFloat()
-            setOnClickListener( clickListener(photoInfo) )
+            setOnClickListener{
+                clickListener(photoInfo)
+            }
         }
     }
 }
