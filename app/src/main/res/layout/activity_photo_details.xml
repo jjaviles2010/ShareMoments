@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:background="@color/secondaryLightColor"
-            android:src="@drawable/ic_image"
-            android:contentDescription="@string/desc_selected_photo" />
+            android:contentDescription="@string/desc_selected_photo"
+            android:src="@drawable/ic_image" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/grp_details_fields"
@@ -148,32 +148,38 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="103dp"
-            android:layout_gravity="center"
-            android:padding="30dp">
+            android:layout_height="100dp"
+            android:padding="8dp">
 
-            <Button
-                android:id="@+id/btnTakePhoto"
-                style="@style/custom_button"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabTakePhoto"
+                style="@style/Widget.Design.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:text="@string/lb_take_photo"
-                app:layout_constraintEnd_toStartOf="@+id/btnSave"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:backgroundTint="@color/primaryColor"
+                android:clickable="true"
+                app:layout_constraintEnd_toStartOf="@+id/fabSavePhoto"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_camera_app"
+                android:contentDescription="@string/desc_take_photo_button"
+                android:focusable="true" />
 
-            <Button
-                android:id="@+id/btnSave"
-                style="@style/custom_button"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabSavePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/lb_save"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/primaryColor"
+                android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnTakePhoto"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_save"
+                android:contentDescription="@string/desc_button_save_photo"
+                android:focusable="true" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

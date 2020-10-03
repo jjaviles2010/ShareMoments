@@ -11,4 +11,6 @@
     <string name="lb_format">Format:</string>
     <string name="lb_take_photo">Take photo</string>
     <string name="lb_save">Save</string>
+    <string name="desc_take_photo_button">Take photo button</string>
+    <string name="desc_button_save_photo">Button save photo</string>
 </resources>
