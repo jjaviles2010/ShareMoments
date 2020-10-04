@@ -11,6 +11,7 @@ import kotlinx.android.parcel.Parcelize
 class Photo(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "idPhoto") var idPhoto: Int = 0,
     var title: String = "",
+    var fileName: String = "",
     var filePath: String = "",
     var fileFormat: String = "JPEG",
     var height: Double = 0.0,

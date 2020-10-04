@@ -16,6 +16,9 @@ import androidx.core.content.FileProvider
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
 import kotlinx.android.synthetic.main.activity_photo_details.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.File
@@ -28,7 +31,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     val REQUEST_TAKE_PHOTO = 1
     lateinit var currentPhotoPath: String
-    lateinit var currentPhotoUri: String
 
     val photoDetailsViewModel: PhotoDetailsViewModel by viewModel()
     val photo: Photo by inject()
@@ -42,6 +44,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     private fun setupActionButtons() {
         fabTakePhoto.setOnClickListener { openCameraToTakePhoto() }
+        fabSavePhoto.setOnClickListener { savePhotoInfo() }
     }
 
     private fun openCameraToTakePhoto() {
@@ -63,7 +66,9 @@ class PhotoDetailsActivity : AppCompatActivity() {
                         "com.jlapps.sharemoments.fileprovider",
                         it
                     )
-                    currentPhotoUri = photoURI.toString()
+                    photo.filePath = photoURI.toString()
+                    photo.fileName = photoFile.name
+                    photo.title = photoFile.name
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
                 }
@@ -71,26 +76,35 @@ class PhotoDetailsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            ivPhotoDetails.setImageURI(Uri.parse(currentPhotoUri))
-            //setPic()
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val date = Date()
+        photo.photoDate = date.time
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(date)
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "${timeStamp}_",
+            ".jpg",
+            storageDir
+        )
+    }
+
+    private fun savePhotoInfo() {
+        populateInfo()
+        photoDetailsViewModel.insertPhoto(photo)
+    }
+
+    private fun populateInfo() {
+        if (etPhotoTitle.text.isNotEmpty()) {
+            photo.title = etPhotoTitle.text.toString()
         }
     }
 
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(
-            "${timeStamp}_", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-        ).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            ivPhotoDetails.setImageURI(Uri.parse(photo.filePath))
+            //setPic()
         }
     }
 
