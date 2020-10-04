@@ -14,8 +14,8 @@
         <ImageView
             android:id="@+id/ivPhotoDetails"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:background="@color/secondaryLightColor"
+            android:layout_height="300dp"
+            android:background="@color/primaryColor"
             android:contentDescription="@string/desc_selected_photo"
             android:src="@drawable/ic_image" />
 
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="JPG"
+                android:text="JPEG"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvPhotoDimensions"
                 app:layout_constraintTop_toBottomOf="@+id/tvPhotoDimensions" />

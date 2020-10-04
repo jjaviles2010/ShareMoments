@@ -12,10 +12,10 @@ class Photo(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "idPhoto") var idPhoto: Int = 0,
     var title: String = "",
     var filePath: String = "",
-    var fileFormat: String = "",
+    var fileFormat: String = "JPEG",
     var height: Double = 0.0,
     var width: Double = 0.0,
     var photoDate: Long = 0,
-    var photoRating: Int = 0,
+    var photoRating: Double = 0.0,
     var fileSize: Long = 0
 ) : Parcelable
