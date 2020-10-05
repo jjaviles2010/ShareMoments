@@ -14,6 +14,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
+import com.jlapps.sharemoments.utils.toDate
 import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.android.synthetic.main.include_loading.*
 import org.koin.android.ext.android.inject
@@ -115,6 +116,22 @@ class PhotoDetailsActivity : AppCompatActivity() {
         photo.photoRating = rbPhotoDetails.rating
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            photoDetailsViewModel.isLoading.value = true
+            setPhotoDetails()
+            setDetailsVisibility()
+            photoDetailsViewModel.isLoading.value = false
+            //setPic()
+        }
+    }
+
+    private fun setPhotoDetails() {
+        ivPhotoDetails.setImageURI(Uri.parse(photo.filePath))
+        tvPhotoDate.text = photo.photoDate.toDate()
+    }
+
     private fun setDetailsVisibility() {
         if (photo.filePath.isNotEmpty()) {
             grp_details_fields.visibility = View.VISIBLE
@@ -122,17 +139,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
         } else {
             grp_details_fields.visibility = View.GONE
             fabSavePhoto.visibility = View.GONE
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            photoDetailsViewModel.isLoading.value = true
-            ivPhotoDetails.setImageURI(Uri.parse(photo.filePath))
-            setDetailsVisibility()
-            photoDetailsViewModel.isLoading.value = false
-            //setPic()
         }
     }
 
