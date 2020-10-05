@@ -1,5 +1,7 @@
 package com.jlapps.sharemoments.view.photos
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -36,10 +38,31 @@ class PhotosListAdapter(
                      clickListener: (Photo) -> Unit) = with(itemView) {
             tvPhotoTitle.text = photoInfo.title
             rbPhotoRate.rating = photoInfo.photoRating
-            ivPhoto.setImageURI(Uri.parse(photoInfo.filePath))
+            ivPhoto.setImageBitmap(setPic(photoInfo.filePath))
             setOnClickListener{
                 clickListener(photoInfo)
             }
+        }
+
+        private fun setPic(photoPath: String) : Bitmap {
+
+            val bmOptions = BitmapFactory.Options().apply {
+                // Get the dimensions of the bitmap
+                inJustDecodeBounds = true
+
+                BitmapFactory.decodeFile(photoPath, this)
+
+                val photoW: Int = outWidth
+                val photoH: Int = outHeight
+
+                // Determine how much to scale down the image
+                val scaleFactor: Int = Math.max(1, Math.min(photoW / 200, photoH / 200))
+
+                // Decode the image file into a Bitmap sized to fill the View
+                inJustDecodeBounds = false
+                inSampleSize = scaleFactor
+            }
+            return BitmapFactory.decodeFile(photoPath, bmOptions)
         }
     }
 }

@@ -80,7 +80,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
                         "com.jlapps.sharemoments.fileprovider",
                         it
                     )
-                    photo.filePath = photoURI.toString()
+                    photo.filePath = photoFile.absolutePath
                     photo.fileName = photoFile.name
                     photo.title = photoFile.nameWithoutExtension
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -136,32 +136,4 @@ class PhotoDetailsActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun setPic() {
-        // Get the dimensions of the View
-        val targetW: Int = ivPhotoDetails.width
-        val targetH: Int = ivPhotoDetails.height
-
-        val bmOptions = BitmapFactory.Options().apply {
-            // Get the dimensions of the bitmap
-            inJustDecodeBounds = true
-
-            BitmapFactory.decodeFile(currentPhotoPath, this)
-
-            val photoW: Int = outWidth
-            val photoH: Int = outHeight
-
-
-            // Determine how much to scale down the image
-            val scaleFactor: Int = Math.max(1, Math.min(photoW / targetW, photoH / targetH))
-
-            // Decode the image file into a Bitmap sized to fill the View
-            inJustDecodeBounds = false
-            inSampleSize = scaleFactor
-            inPurgeable = true
-        }
-        BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-            ivPhotoDetails.setImageBitmap(bitmap)
-        }
-    }
 }
