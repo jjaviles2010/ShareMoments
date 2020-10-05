@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@+id/ivPhotoDetails">
 
 
@@ -47,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/lb_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rbPhotoDetails" />
@@ -70,7 +71,7 @@
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/lb_photo_date"
                     app:layout_constraintStart_toStartOf="@+id/tvPhotoTitle"
                     app:layout_constraintTop_toBottomOf="@+id/tvPhotoTitle" />
@@ -79,11 +80,11 @@
                     android:id="@+id/tvPhotoDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/lblPhotoDate"
-                    app:layout_constraintEnd_toEndOf="@+id/etPhotoTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/etPhotoTitle"
+                    app:layout_constraintStart_toEndOf="@+id/lblPhotoDate"
+                    app:layout_constraintTop_toTopOf="@+id/lblPhotoDate"
                     tools:text="10/02/20 3:26 PM" />
 
                 <TextView
@@ -91,19 +92,20 @@
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/lb_size"
-                    app:layout_constraintStart_toStartOf="@+id/lblPhotoDate"
-                    app:layout_constraintTop_toBottomOf="@+id/lblPhotoDate" />
+                    app:layout_constraintEnd_toStartOf="@+id/tvPhotoSize"
+                    app:layout_constraintTop_toTopOf="@+id/tvPhotoDimensions" />
 
                 <TextView
                     android:id="@+id/tvPhotoSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="1dp"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvPhotoDate"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPhotoDate"
+                    app:layout_constraintEnd_toEndOf="@+id/tvPhotoFormat"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhotoFormat"
                     tools:text="3.10 MB" />
 
                 <TextView
@@ -111,42 +113,42 @@
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
                     android:text="@string/lb_dimensions"
-                    app:layout_constraintStart_toStartOf="@+id/lb_photoSize"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_photoSize" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/lblPhotoDate"
+                    app:layout_constraintTop_toBottomOf="@+id/lblPhotoDate" />
 
                 <TextView
                     android:id="@+id/tvPhotoDimensions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
                     android:text="H:78 X W:80"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvPhotoSize"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPhotoSize" />
+                    app:layout_constraintStart_toEndOf="@+id/lb_photo_dimensions"
+                    app:layout_constraintTop_toTopOf="@+id/lb_photo_dimensions" />
 
                 <TextView
                     android:id="@+id/lbFormat"
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/lb_format"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/lb_photo_dimensions"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_photo_dimensions" />
+                    app:layout_constraintEnd_toStartOf="@+id/tvPhotoFormat"
+                    app:layout_constraintTop_toTopOf="@+id/tvPhotoDate" />
 
                 <TextView
                     android:id="@+id/tvPhotoFormat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="JPEG"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvPhotoDimensions"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPhotoDimensions" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/lbFormat" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

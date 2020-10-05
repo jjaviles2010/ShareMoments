@@ -37,6 +37,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
         configureObservers()
         setupActionButtons()
+        setDetailsVisibility()
     }
 
     private fun configureObservers() {
@@ -81,7 +82,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
                     )
                     photo.filePath = photoURI.toString()
                     photo.fileName = photoFile.name
-                    photo.title = photoFile.name
+                    photo.title = photoFile.nameWithoutExtension
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
                 }
@@ -93,7 +94,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
     private fun createImageFile(): File {
         val date = Date()
         photo.photoDate = date.time
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(date)
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd").format(date)
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "${timeStamp}_",
@@ -114,11 +115,22 @@ class PhotoDetailsActivity : AppCompatActivity() {
         photo.photoRating = rbPhotoDetails.rating
     }
 
+    private fun setDetailsVisibility() {
+        if (photo.filePath.isNotEmpty()) {
+            grp_details_fields.visibility = View.VISIBLE
+            fabSavePhoto.visibility = View.VISIBLE
+        } else {
+            grp_details_fields.visibility = View.GONE
+            fabSavePhoto.visibility = View.GONE
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             photoDetailsViewModel.isLoading.value = true
             ivPhotoDetails.setImageURI(Uri.parse(photo.filePath))
+            setDetailsVisibility()
             photoDetailsViewModel.isLoading.value = false
             //setPic()
         }
