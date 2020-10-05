@@ -80,7 +80,7 @@
                     android:id="@+id/tvPhotoDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/lblPhotoDate"
                     app:layout_constraintStart_toEndOf="@+id/lblPhotoDate"
@@ -92,50 +92,49 @@
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/lb_size"
                     app:layout_constraintEnd_toStartOf="@+id/tvPhotoSize"
-                    app:layout_constraintTop_toTopOf="@+id/tvPhotoDimensions" />
+                    app:layout_constraintTop_toTopOf="@+id/lb_photo_width" />
 
                 <TextView
                     android:id="@+id/tvPhotoSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="1dp"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="@+id/tvPhotoFormat"
                     app:layout_constraintTop_toBottomOf="@+id/tvPhotoFormat"
                     tools:text="3.10 MB" />
 
                 <TextView
-                    android:id="@+id/lb_photo_dimensions"
+                    android:id="@+id/lb_photo_height"
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
-                    android:text="@string/lb_dimensions"
+                    android:text="@string/lb_height"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/lblPhotoDate"
                     app:layout_constraintTop_toBottomOf="@+id/lblPhotoDate" />
 
                 <TextView
-                    android:id="@+id/tvPhotoDimensions"
+                    android:id="@+id/tvHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="H:78 X W:80"
+                    android:layout_marginStart="8dp"
+                    android:text="78"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@+id/lb_photo_dimensions"
-                    app:layout_constraintTop_toTopOf="@+id/lb_photo_dimensions" />
+                    app:layout_constraintStart_toEndOf="@+id/lb_photo_height"
+                    app:layout_constraintTop_toTopOf="@+id/lb_photo_height" />
 
                 <TextView
                     android:id="@+id/lbFormat"
                     style="@style/CustomLabelBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/lb_format"
                     app:layout_constraintEnd_toStartOf="@+id/tvPhotoFormat"
                     app:layout_constraintTop_toTopOf="@+id/tvPhotoDate" />
@@ -149,6 +148,27 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/lbFormat" />
+
+                <TextView
+                    android:id="@+id/lb_photo_width"
+                    style="@style/CustomLabelBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/lb_width"
+                    app:layout_constraintStart_toEndOf="@+id/tvHeight"
+                    app:layout_constraintTop_toTopOf="@+id/lb_photo_height" />
+
+                <TextView
+                    android:id="@+id/tvWidth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="80"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/lb_photo_width"
+                    app:layout_constraintTop_toTopOf="@+id/lb_photo_width" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

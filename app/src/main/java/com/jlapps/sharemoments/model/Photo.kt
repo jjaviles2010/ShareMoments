@@ -14,8 +14,8 @@ class Photo(
     var fileName: String = "",
     var filePath: String = "",
     var fileFormat: String = "JPEG",
-    var height: Double = 0.0,
-    var width: Double = 0.0,
+    var height: Int = 0,
+    var width: Int = 0,
     var photoDate: Long = 0,
     var photoRating: Float = 0.0f,
     var fileSize: Long = 0

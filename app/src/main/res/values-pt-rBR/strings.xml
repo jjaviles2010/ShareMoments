@@ -7,10 +7,11 @@
     <string name="lb_title">Título:</string>
     <string name="lb_photo_date">Data:</string>
     <string name="lb_size">Tamanho:</string>
-    <string name="lb_dimensions">Dimensões:</string>
+    <string name="lb_height">Altura:</string>
     <string name="lb_format">Formato:</string>
     <string name="lb_take_photo">Tirar foto</string>
     <string name="lb_save">Salvar</string>
     <string name="desc_take_photo_button">Botão tomar foto</string>
     <string name="desc_button_save_photo">Botão salvar foto</string>
+    <string name="lb_width">Largura:</string>
 </resources>

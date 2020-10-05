@@ -27,7 +27,6 @@ import java.util.Date
 class PhotoDetailsActivity : AppCompatActivity() {
 
     val REQUEST_TAKE_PHOTO = 1
-    lateinit var currentPhotoPath: String
 
     val photoDetailsViewModel: PhotoDetailsViewModel by viewModel()
     val photo: Photo by inject()
@@ -123,13 +122,16 @@ class PhotoDetailsActivity : AppCompatActivity() {
             setPhotoDetails()
             setDetailsVisibility()
             photoDetailsViewModel.isLoading.value = false
-            //setPic()
         }
     }
 
     private fun setPhotoDetails() {
-        ivPhotoDetails.setImageURI(Uri.parse(photo.filePath))
+        setPic()
         tvPhotoDate.text = photo.photoDate.toDate()
+        photo.fileSize = File(photo.filePath).length()/1024/1024
+        tvPhotoSize.text = "${photo.fileSize} MB"
+        tvHeight.text = photo.height.toString()
+        tvWidth.text = photo.width.toString()
     }
 
     private fun setDetailsVisibility() {
@@ -142,4 +144,30 @@ class PhotoDetailsActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun setPic() {
+        // Get the dimensions of the View
+        val targetW: Int = ivPhotoDetails.width
+        val targetH: Int = ivPhotoDetails.height
+
+        val bmOptions = BitmapFactory.Options().apply {
+            // Get the dimensions of the bitmap
+            inJustDecodeBounds = true
+
+            BitmapFactory.decodeFile(photo.filePath, this)
+
+            photo.width = outWidth
+            photo.height = outHeight
+
+            // Determine how much to scale down the image
+            val scaleFactor: Int = Math.max(1, Math.min(photo.width / targetW, photo.height / targetH))
+
+            // Decode the image file into a Bitmap sized to fill the View
+            inJustDecodeBounds = false
+            inSampleSize = scaleFactor
+        }
+        BitmapFactory.decodeFile(photo.filePath, bmOptions)?.also { bitmap ->
+            ivPhotoDetails.setImageBitmap(bitmap)
+        }
+    }
 }
