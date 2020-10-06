@@ -53,8 +53,9 @@ class PhotosListActivity : AppCompatActivity() {
             rvPhotosList.adapter = PhotosListAdapter(
                 it
             ) { photo ->
-                //TODO : Implement navigation to DetailActivity
-                Toast.makeText(this, "Photo ${photo.title} selected!",Toast.LENGTH_SHORT).show()
+                val intentDetails = Intent(this, PhotoDetailsActivity::class.java)
+                intentDetails.putExtra("PHOTO", photo)
+                startActivity(intentDetails)
             }
 
             rvPhotosList.layoutManager = LinearLayoutManager(this)

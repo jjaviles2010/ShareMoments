@@ -35,9 +35,27 @@ class PhotoDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_details)
 
+        extractPhotoInfo()
         configureObservers()
         setupActionButtons()
         setDetailsVisibility()
+    }
+
+    private fun extractPhotoInfo() {
+        val photoParameter: Photo? = intent.getParcelableExtra("PHOTO")
+        if(photoParameter != null) {
+            photo.idPhoto = photoParameter.idPhoto
+            photo.title = photoParameter.title
+            photo.fileName = photoParameter.fileName
+            photo.filePath = photoParameter.filePath
+            photo.fileFormat = photoParameter.fileFormat
+            photo.height = photoParameter.height
+            photo.width = photoParameter.width
+            photo.photoDate = photoParameter.photoDate
+            photo.photoRating = photoParameter.photoRating
+            photo.fileSize = photoParameter.fileSize
+            setPhotoDetails()
+        }
     }
 
     private fun configureObservers() {
@@ -132,6 +150,8 @@ class PhotoDetailsActivity : AppCompatActivity() {
         tvPhotoSize.text = "${photo.fileSize} MB"
         tvHeight.text = photo.height.toString()
         tvWidth.text = photo.width.toString()
+        etPhotoTitle.setText(photo.title)
+        rbPhotoDetails.rating = photo.photoRating
     }
 
     private fun setDetailsVisibility() {
@@ -146,10 +166,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
 
     private fun setPic() {
-        // Get the dimensions of the View
-        val targetW: Int = ivPhotoDetails.width
-        val targetH: Int = ivPhotoDetails.height
-
         val bmOptions = BitmapFactory.Options().apply {
             // Get the dimensions of the bitmap
             inJustDecodeBounds = true
@@ -160,7 +176,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
             photo.height = outHeight
 
             // Determine how much to scale down the image
-            val scaleFactor: Int = Math.max(1, Math.min(photo.width / targetW, photo.height / targetH))
+            val scaleFactor: Int = Math.max(1, Math.min(photo.width / 1080, photo.height / 900))
 
             // Decode the image file into a Bitmap sized to fill the View
             inJustDecodeBounds = false
