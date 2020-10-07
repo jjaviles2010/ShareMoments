@@ -78,6 +78,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
     private fun setupActionButtons() {
         fabTakePhoto.setOnClickListener { openCameraToTakePhoto() }
         fabSavePhoto.setOnClickListener { savePhotoInfo() }
+        fabSharePhoto.setOnClickListener { sharePhoto() }
     }
 
     private fun openCameraToTakePhoto() {
@@ -131,6 +132,16 @@ class PhotoDetailsActivity : AppCompatActivity() {
             photo.title = etPhotoTitle.text.toString()
         }
         photo.photoRating = rbPhotoDetails.rating
+    }
+
+    private fun sharePhoto() {
+        val sharePhotoIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_STREAM, Uri.parse(photo.filePath))
+            type = "image/jpeg"
+        }
+
+        startActivity(Intent.createChooser(sharePhotoIntent, getString(R.string.lb_sharePhoto)))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

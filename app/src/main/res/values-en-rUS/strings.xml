@@ -14,4 +14,5 @@
     <string name="desc_take_photo_button">Take photo button</string>
     <string name="desc_button_save_photo">Button save photo</string>
     <string name="lb_width">Width:</string>
+    <string name="lb_sharePhoto">Share photo</string>
 </resources>
