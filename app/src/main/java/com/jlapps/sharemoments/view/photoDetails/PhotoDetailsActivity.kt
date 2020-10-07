@@ -169,9 +169,11 @@ class PhotoDetailsActivity : AppCompatActivity() {
         if (photo.filePath.isNotEmpty()) {
             grp_details_fields.visibility = View.VISIBLE
             fabSavePhoto.visibility = View.VISIBLE
+            fabSharePhoto.visibility = View.VISIBLE
         } else {
             grp_details_fields.visibility = View.GONE
             fabSavePhoto.visibility = View.GONE
+            fabSharePhoto.visibility = View.GONE
         }
     }
 
