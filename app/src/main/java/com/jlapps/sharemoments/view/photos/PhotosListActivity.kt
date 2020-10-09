@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.view.photoDetails.PhotoDetailsActivity
 import kotlinx.android.synthetic.main.activity_photos_list.*
@@ -42,9 +43,9 @@ class PhotosListActivity : AppCompatActivity() {
             }
         })
 
-        photosListViewModel.message.observe(this, Observer {
-            if (it != "") {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT)
+        photosListViewModel.operationSuccess.observe(this, Observer {
+            if (it == false) {
+                Snackbar.make(listViewCoordinator, getString(R.string.lbl_error_loading), Snackbar.LENGTH_LONG).show()
             }
         })
 

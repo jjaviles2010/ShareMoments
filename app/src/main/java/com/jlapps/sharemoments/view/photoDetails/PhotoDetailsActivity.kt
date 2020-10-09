@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
 import com.jlapps.sharemoments.utils.toDate
@@ -67,9 +68,22 @@ class PhotoDetailsActivity : AppCompatActivity() {
             }
         })
 
-        photoDetailsViewModel.message.observe(this, Observer {
-            if (it != "") {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT)
+        photoDetailsViewModel.createdSuccess.observe(this, Observer {
+            if (it == true) {
+                Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_photo_saved), Snackbar.LENGTH_LONG).show()
+                finish()
+            } else {
+                Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_error_saving_photo), Snackbar.LENGTH_LONG).show()
+                finish()
+            }
+        })
+
+        photoDetailsViewModel.updatedSuccess.observe(this, Observer {
+            if (it == true) {
+                Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_success_update), Snackbar.LENGTH_LONG).show()
+                finish()
+            } else {
+                Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_error_update), Snackbar.LENGTH_LONG).show()
                 finish()
             }
         })
@@ -89,7 +103,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
                 val photoFile: File? = try {
                     createImageFile()
                 } catch (ex: IOException) {
-                    photoDetailsViewModel.message.value = "Camera is not available"
+                    Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_no_camera), Snackbar.LENGTH_LONG).show()
                     null
                 }
                 // Continue only if the File was successfully created

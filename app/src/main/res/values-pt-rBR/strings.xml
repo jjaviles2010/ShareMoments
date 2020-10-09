@@ -16,4 +16,10 @@
     <string name="lb_width">Largura:</string>
     <string name="lb_sharePhoto">Compartilhar foto</string>
     <string name="lb_no_photo_found">Nenhuma foto encontrada</string>
+    <string name="lbl_error_loading">Erro carregando fotos</string>
+    <string name="msg_photo_saved">Foto salva com sucesso</string>
+    <string name="msg_error_saving_photo">Erro salvando foto</string>
+    <string name="msg_success_update">Foto atualizada com sucesso</string>
+    <string name="msg_error_update">Error atualizando foto</string>
+    <string name="msg_no_camera">Câmara não disponível</string>
 </resources>

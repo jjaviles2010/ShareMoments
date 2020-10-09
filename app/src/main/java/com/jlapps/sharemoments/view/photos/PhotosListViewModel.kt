@@ -9,7 +9,7 @@ import com.jlapps.sharemoments.repository.PhotoRepository
 class PhotosListViewModel(val photoRepository: PhotoRepository) : ViewModel() {
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val message: MutableLiveData<String> = MutableLiveData()
+    val operationSuccess: MutableLiveData<Boolean> = MutableLiveData()
 
     lateinit var photos: LiveData<List<Photo>>
 
@@ -18,7 +18,7 @@ class PhotosListViewModel(val photoRepository: PhotoRepository) : ViewModel() {
         try {
             photos = photoRepository.getPhotos()
         } catch (error: Error) {
-            message.value = "Error loading photos"
+            operationSuccess.value = false
         } finally {
             isLoading.value = false
         }

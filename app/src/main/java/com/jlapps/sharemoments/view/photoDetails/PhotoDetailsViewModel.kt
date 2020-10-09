@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 class PhotoDetailsViewModel(val photoRepository: PhotoRepository) : ViewModel(){
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val message: MutableLiveData<String> = MutableLiveData()
+    val createdSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val updatedSuccess: MutableLiveData<Boolean> = MutableLiveData()
     lateinit var photo: LiveData<Photo>
 
     fun insertPhoto(photo: Photo) {
@@ -20,9 +21,9 @@ class PhotoDetailsViewModel(val photoRepository: PhotoRepository) : ViewModel(){
             viewModelScope.launch {
                 photoRepository.insertPhoto(photo)
             }
-            message.value = "Photo saved successfully"
+            createdSuccess.value = true
         } catch (error: Error) {
-            message.value = "Error saving photo"
+            createdSuccess.value = false
         } finally {
             isLoading.value = false
         }
@@ -34,9 +35,9 @@ class PhotoDetailsViewModel(val photoRepository: PhotoRepository) : ViewModel(){
             viewModelScope.launch {
                 photoRepository.updatePhoto(photo)
             }
-            message.value = "Photo updated successfully"
+            updatedSuccess.value = true
         } catch (error: Error) {
-            message.value = "Error updating photo"
+            updatedSuccess.value = false
         } finally {
             isLoading.value = false
         }
