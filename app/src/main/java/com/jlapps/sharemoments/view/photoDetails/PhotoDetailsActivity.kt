@@ -1,20 +1,18 @@
 package com.jlapps.sharemoments.view.photoDetails
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
+import com.jlapps.sharemoments.utils.decodeToBitMap
 import com.jlapps.sharemoments.utils.toDate
 import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.android.synthetic.main.include_loading.*
@@ -77,7 +75,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
                 finish()
             } else {
                 Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_error_saving_photo), Snackbar.LENGTH_LONG).show()
-                finish()
             }
         })
 
@@ -87,7 +84,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
                 finish()
             } else {
                 Snackbar.make(photoDetailsCoordinator, getString(R.string.msg_error_update), Snackbar.LENGTH_LONG).show()
-                finish()
             }
         })
     }
@@ -176,7 +172,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
     }
 
     private fun setPhotoDetails() {
-        setPic()
+        ivPhotoDetails.setImageBitmap(photo.filePath.decodeToBitMap(1080, 900))
         tvPhotoDate.text = photo.photoDate.toDate()
         photo.fileSize = File(photo.filePath).length()/1024/1024
         tvPhotoSize.text = "${photo.fileSize} MB"
@@ -202,29 +198,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
         if (operation == "UPDATE") {
             fabTakePhoto.visibility = View.GONE
             rbPhotoDetails.setIsIndicator(true)
-        }
-    }
-
-
-    private fun setPic() {
-        val bmOptions = BitmapFactory.Options().apply {
-            // Get the dimensions of the bitmap
-            inJustDecodeBounds = true
-
-            BitmapFactory.decodeFile(photo.filePath, this)
-
-            photo.width = outWidth
-            photo.height = outHeight
-
-            // Determine how much to scale down the image
-            val scaleFactor: Int = Math.max(1, Math.min(photo.width / 1080, photo.height / 900))
-
-            // Decode the image file into a Bitmap sized to fill the View
-            inJustDecodeBounds = false
-            inSampleSize = scaleFactor
-        }
-        BitmapFactory.decodeFile(photo.filePath, bmOptions)?.also { bitmap ->
-            ivPhotoDetails.setImageBitmap(bitmap)
         }
     }
 }

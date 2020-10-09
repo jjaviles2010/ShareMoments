@@ -15,31 +15,25 @@ class PhotoDetailsViewModel(val photoRepository: PhotoRepository) : ViewModel(){
     val updatedSuccess: MutableLiveData<Boolean> = MutableLiveData()
     lateinit var photo: LiveData<Photo>
 
-    fun insertPhoto(photo: Photo) {
-        isLoading.value = true
+    fun insertPhoto(photo: Photo) = viewModelScope.launch{
         try {
-            viewModelScope.launch {
-                photoRepository.insertPhoto(photo)
-            }
+            isLoading.value = true
+            photoRepository.insertPhoto(photo)
             createdSuccess.value = true
         } catch (error: Error) {
-            createdSuccess.value = false
-        } finally {
             isLoading.value = false
+            createdSuccess.value = false
         }
     }
 
-    fun updatePhoto(photo: Photo) {
-        isLoading.value = true
+    fun updatePhoto(photo: Photo) = viewModelScope.launch {
         try {
-            viewModelScope.launch {
-                photoRepository.updatePhoto(photo.idPhoto, photo.title)
-            }
+            isLoading.value = true
+            photoRepository.updatePhoto(photo.idPhoto, photo.title)
             updatedSuccess.value = true
         } catch (error: Error) {
-            updatedSuccess.value = false
-        } finally {
             isLoading.value = false
+            updatedSuccess.value = false
         }
     }
 
