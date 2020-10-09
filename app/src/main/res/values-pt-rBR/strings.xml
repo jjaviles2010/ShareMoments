@@ -15,4 +15,5 @@
     <string name="desc_button_save_photo">Botão salvar foto</string>
     <string name="lb_width">Largura:</string>
     <string name="lb_sharePhoto">Compartilhar foto</string>
+    <string name="lb_no_photo_found">Nenhuma foto encontrada</string>
 </resources>

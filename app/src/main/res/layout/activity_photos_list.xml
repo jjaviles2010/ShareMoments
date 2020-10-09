@@ -11,7 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:itemCount="10"
-        tools:listitem="@layout/photo_list_item" />
+        tools:listitem="@layout/photo_list_item" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/lbNoDataFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:text="@string/lb_no_photo_found" />
 
     <include layout="@layout/include_loading"/>
 

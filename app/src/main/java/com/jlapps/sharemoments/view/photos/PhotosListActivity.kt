@@ -58,6 +58,10 @@ class PhotosListActivity : AppCompatActivity() {
                 startActivity(intentDetails)
             }
 
+            if(it.isNotEmpty()) {
+                lbNoDataFound.visibility = View.GONE
+            }
+
             rvPhotosList.layoutManager = LinearLayoutManager(this)
 
         })
