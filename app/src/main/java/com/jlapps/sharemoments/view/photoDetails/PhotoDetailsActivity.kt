@@ -117,7 +117,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
                         it
                     )
                     photo.filePath = photoFile.absolutePath
-                    photo.fileName = photoFile.name
+                    photo.fileName = photoFile.nameWithoutExtension
                     photo.title = photoFile.nameWithoutExtension
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
