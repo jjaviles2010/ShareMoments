@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.photoDetails.PhotoDetailsActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:parentActivityName=".view.photos.PhotosListActivity"></activity>
         <activity android:name=".view.photos.PhotosListActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".view.splash.SplashScreenActivity"

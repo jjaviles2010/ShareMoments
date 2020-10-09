@@ -8,5 +8,5 @@ interface PhotoRepository {
 
     fun getPhotos() : LiveData<List<Photo>>
 
-    suspend fun updatePhoto(photo: Photo)
+    suspend fun updatePhoto(photoId: Int, title: String)
 }

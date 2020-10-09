@@ -13,7 +13,7 @@ class PhotoRepositoryImpl(val photoDao: PhotoDao) : PhotoRepository {
         return photoDao.getPhotos()
     }
 
-    override suspend fun updatePhoto(photo: Photo) {
-        photoDao.updatePhoto(photo)
+    override suspend fun updatePhoto(photoId: Int, title: String) {
+        photoDao.updatePhoto(photoId, title)
     }
 }

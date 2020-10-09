@@ -31,10 +31,12 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     val photoDetailsViewModel: PhotoDetailsViewModel by viewModel()
     val photo: Photo by inject()
+    var operation = "CREATE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_details)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         extractPhotoInfo()
         configureObservers()
@@ -55,6 +57,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
             photo.photoDate = photoParameter.photoDate
             photo.photoRating = photoParameter.photoRating
             photo.fileSize = photoParameter.fileSize
+            operation = "UPDATE"
             setPhotoDetails()
         }
     }
@@ -138,7 +141,11 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     private fun savePhotoInfo() {
         populateInfo()
-        photoDetailsViewModel.insertPhoto(photo)
+        if (operation == "CREATE") {
+            photoDetailsViewModel.insertPhoto(photo)
+        } else {
+            photoDetailsViewModel.updatePhoto(photo)
+        }
     }
 
     private fun populateInfo() {
@@ -175,7 +182,9 @@ class PhotoDetailsActivity : AppCompatActivity() {
         tvPhotoSize.text = "${photo.fileSize} MB"
         tvHeight.text = photo.height.toString()
         tvWidth.text = photo.width.toString()
-        etPhotoTitle.setText(photo.title)
+        if (photo.title != photo.fileName) {
+            etPhotoTitle.setText(photo.title)
+        }
         rbPhotoDetails.rating = photo.photoRating
     }
 
@@ -188,6 +197,11 @@ class PhotoDetailsActivity : AppCompatActivity() {
             grp_details_fields.visibility = View.GONE
             fabSavePhoto.visibility = View.GONE
             fabSharePhoto.visibility = View.GONE
+        }
+
+        if (operation == "UPDATE") {
+            fabTakePhoto.visibility = View.GONE
+            rbPhotoDetails.setIsIndicator(true)
         }
     }
 

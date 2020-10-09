@@ -13,6 +13,6 @@ interface PhotoDao {
     @Query("SELECT * FROM photo")
     fun getPhotos() : LiveData<List<Photo>>
 
-    @Update
-    suspend fun updatePhoto(photo: Photo)
+    @Query("UPDATE photo SET title=:title WHERE idPhoto=:photoId")
+    suspend fun updatePhoto(photoId: Int, title: String)
 }

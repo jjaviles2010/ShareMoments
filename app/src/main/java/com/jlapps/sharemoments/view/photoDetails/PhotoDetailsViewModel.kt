@@ -33,7 +33,7 @@ class PhotoDetailsViewModel(val photoRepository: PhotoRepository) : ViewModel(){
         isLoading.value = true
         try {
             viewModelScope.launch {
-                photoRepository.updatePhoto(photo)
+                photoRepository.updatePhoto(photo.idPhoto, photo.title)
             }
             updatedSuccess.value = true
         } catch (error: Error) {
