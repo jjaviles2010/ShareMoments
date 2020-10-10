@@ -1,19 +1,27 @@
 package com.jlapps.sharemoments.view.photoDetails
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.BitmapFactory
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
+import com.jlapps.sharemoments.utils.PermissionUtils
 import com.jlapps.sharemoments.utils.toDate
 import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.android.synthetic.main.include_loading.*
@@ -22,20 +30,29 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 class PhotoDetailsActivity : AppCompatActivity() {
 
     val REQUEST_TAKE_PHOTO = 1
+    val REQUEST_PERMISSIONS = 10
 
     val photoDetailsViewModel: PhotoDetailsViewModel by viewModel()
     val photo: Photo by inject()
     var operation = "CREATE"
+    var locationPermissionGranted = false
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_details)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        locationPermissionGranted = PermissionUtils.checkPermissions(this, REQUEST_PERMISSIONS)
 
         extractPhotoInfo()
         configureObservers()
@@ -56,6 +73,9 @@ class PhotoDetailsActivity : AppCompatActivity() {
             photo.photoDate = photoParameter.photoDate
             photo.photoRating = photoParameter.photoRating
             photo.fileSize = photoParameter.fileSize
+            photo.latitude = photoParameter.latitude
+            photo.longitude = photoParameter.longitude
+            photo.photoPlace = photoParameter.photoPlace
             operation = "UPDATE"
             setPhotoDetails()
         }
@@ -90,9 +110,36 @@ class PhotoDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupActionButtons() {
-        fabTakePhoto.setOnClickListener { openCameraToTakePhoto() }
+        fabTakePhoto.setOnClickListener { startPhotoFlow() }
         fabSavePhoto.setOnClickListener { savePhotoInfo() }
         fabSharePhoto.setOnClickListener { sharePhoto() }
+    }
+
+    private fun startPhotoFlow() {
+        if (locationPermissionGranted) {
+            getLocation()
+        }
+        openCameraToTakePhoto()
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                photo.latitude = location?.latitude
+                photo.longitude = location?.longitude
+                getPhotoPlace()
+            }
+    }
+
+    private fun getPhotoPlace() {
+        if (photo.latitude != null && photo.longitude != null) {
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val address = geocoder.getFromLocation(photo.latitude!!, photo.longitude!!, 1)
+            photo.photoPlace = "${address[0].locality}, ${address[0].adminArea}, ${address[0].countryCode}"
+        }
     }
 
     private fun openCameraToTakePhoto() {
@@ -162,6 +209,22 @@ class PhotoDetailsActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(sharePhotoIntent, getString(R.string.lb_sharePhoto)))
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_PERMISSIONS) {
+            if (grantResults[0] == PERMISSION_GRANTED) {
+                locationPermissionGranted = true
+            } else {
+                Toast.makeText(this, getString(R.string.msg_location_unavailable), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
@@ -188,6 +251,9 @@ class PhotoDetailsActivity : AppCompatActivity() {
         tvWidth.text = photo.width.toString()
         if (photo.title != photo.fileName) {
             etPhotoTitle.setText(photo.title)
+        }
+        if (!photo.photoPlace.isNullOrEmpty()) {
+            tvLocation.text = photo.photoPlace
         }
         rbPhotoDetails.rating = photo.photoRating
     }

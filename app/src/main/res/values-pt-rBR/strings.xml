@@ -22,4 +22,8 @@
     <string name="msg_success_update">Foto atualizada com sucesso</string>
     <string name="msg_error_update">Error atualizando foto</string>
     <string name="msg_no_camera">Câmara não disponível</string>
+    <string name="lbl_location">Lugar:</string>
+    <string name="lbl_unknown">Desconhecido</string>
+    <string name="msg_request_perm_rationale">O acesso à sua localização é necessário para mostrar onde a foto foi tomada.</string>
+    <string name="msg_location_unavailable">A localização da foto não estará disponível.</string>
 </resources>

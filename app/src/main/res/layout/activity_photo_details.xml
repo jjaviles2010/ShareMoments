@@ -75,8 +75,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@string/lb_photo_date"
-                    app:layout_constraintStart_toStartOf="@+id/tvPhotoTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPhotoTitle" />
+                    app:layout_constraintStart_toStartOf="@+id/lbLocation"
+                    app:layout_constraintTop_toBottomOf="@+id/lbLocation" />
 
                 <TextView
                     android:id="@+id/tvPhotoDate"
@@ -171,6 +171,27 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toEndOf="@+id/lb_photo_width"
                     app:layout_constraintTop_toTopOf="@+id/lb_photo_width" />
+
+                <TextView
+                    android:id="@+id/lbLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    style="@style/CustomLabelBold"
+                    android:text="@string/lbl_location"
+                    app:layout_constraintStart_toStartOf="@+id/tvPhotoTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhotoTitle" />
+
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etPhotoTitle"
+                    android:text="@string/lbl_unknown" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

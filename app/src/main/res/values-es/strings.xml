@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desc_camera_image">Imagen de la cámara</string>
+    <string name="desc_photo_in_the_list">Foto en la lista</string>
+    <string name="lb_new_photo">Nueva foto</string>
+    <string name="desc_selected_photo">Foto seleccionada</string>
+    <string name="lb_title">Título:</string>
+    <string name="lb_photo_date">Fecha:</string>
+    <string name="lb_size">Tamaño</string>
+    <string name="lb_height">Altura:</string>
+    <string name="lb_format">Formato:</string>
+    <string name="lb_take_photo">Tirar foto</string>
+    <string name="lb_save">Salvar</string>
+    <string name="desc_take_photo_button">Botón tirar foto</string>
+    <string name="desc_button_save_photo">Botón salvar foto</string>
+    <string name="lb_width">Ancho:</string>
+    <string name="lb_sharePhoto">Compartir foto</string>
+    <string name="lb_no_photo_found">Ninguna foto encontrada</string>
+    <string name="lbl_error_loading">Error cargando las fotos</string>
+    <string name="msg_photo_saved">Foto salvada con éxito</string>
+    <string name="msg_error_saving_photo">Error al salvar foto</string>
+    <string name="msg_success_update">Foto actualizada con éxito</string>
+    <string name="msg_error_update">Error actualizando foto</string>
+    <string name="msg_no_camera">Cámara no disponible</string>
+    <string name="lbl_location">Lugar:</string>
+    <string name="lbl_unknown">Desconocido</string>
+    <string name="msg_request_perm_rationale">El accesso a su localización es necesario para mostrar donde fue tirada la foto.</string>
+    <string name="msg_location_unavailable">La localización de la foto no estará disponible.</string>
+</resources>
