@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
-import com.jlapps.sharemoments.utils.decodeToBitMap
 import kotlinx.android.synthetic.main.photo_list_item.view.*
 
 class PhotosListAdapter(
@@ -35,7 +35,7 @@ class PhotosListAdapter(
                      clickListener: (Photo) -> Unit) = with(itemView) {
             tvPhotoTitle.text = photoInfo.title
             rbPhotoRate.rating = photoInfo.photoRating
-            ivPhoto.setImageBitmap(photoInfo.filePath.decodeToBitMap())
+            Glide.with(view).load(photoInfo.filePath).thumbnail().into(ivPhoto)
             setOnClickListener{
                 clickListener(photoInfo)
             }

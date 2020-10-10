@@ -1,6 +1,7 @@
 package com.jlapps.sharemoments.view.photoDetails
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,10 +10,10 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.jlapps.sharemoments.R
 import com.jlapps.sharemoments.model.Photo
-import com.jlapps.sharemoments.utils.decodeToBitMap
 import com.jlapps.sharemoments.utils.toDate
 import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.android.synthetic.main.include_loading.*
@@ -165,14 +166,21 @@ class PhotoDetailsActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             photoDetailsViewModel.isLoading.value = true
+            getImageDimensions()
             setPhotoDetails()
             setDetailsVisibility()
             photoDetailsViewModel.isLoading.value = false
         }
     }
 
+    private fun getImageDimensions() {
+        val photoBitmap = BitmapFactory.decodeFile(photo.filePath)
+        photo.width = photoBitmap.width
+        photo.height = photoBitmap.height
+    }
+
     private fun setPhotoDetails() {
-        ivPhotoDetails.setImageBitmap(photo.filePath.decodeToBitMap(1080, 900))
+        Glide.with(this).load(photo.filePath).into(ivPhotoDetails)
         tvPhotoDate.text = photo.photoDate.toDate()
         photo.fileSize = File(photo.filePath).length()/1024/1024
         tvPhotoSize.text = "${photo.fileSize} MB"
