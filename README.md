@@ -8,7 +8,8 @@ This is an Android App developed using Kotlin.
 * Programming Language: Kotlin.
 * Architectural pattern: MVVM.
 * Some used Android Architecture Components's libraries: ViewModel, LiveData, Room.
-* It uses [Koin](https://insert-koin.io/) as dependency injection framework.
+* [Koin](https://insert-koin.io/) is used as dependency injection framework.
+* [Glide](https://github.com/bumptech/glide) is used to render the photos.
 
 ### Features
 * List of taken photos.
