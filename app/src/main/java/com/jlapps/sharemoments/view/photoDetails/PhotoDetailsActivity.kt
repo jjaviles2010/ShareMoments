@@ -138,7 +138,8 @@ class PhotoDetailsActivity : AppCompatActivity() {
         if (photo.latitude != null && photo.longitude != null) {
             val geocoder = Geocoder(this, Locale.getDefault())
             val address = geocoder.getFromLocation(photo.latitude!!, photo.longitude!!, 1)
-            photo.photoPlace = "${address[0].locality}, ${address[0].adminArea}, ${address[0].countryCode}"
+            photo.photoPlace = "${address[0].locality ?: address[0].subAdminArea}," +
+                    " ${address[0].adminArea}, ${address[0].countryCode}"
         }
     }
 
